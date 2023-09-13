@@ -10,7 +10,7 @@
 long nbonacci(unsigned int series, unsigned int n)
 {
   int x = 0;
-  for (int i = 1; i <= series; i++) {
+  for (unsigned int i = 1; i <= series; i++) {
     if (i >= n) {
       return 1;
     }
