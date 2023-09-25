@@ -14,5 +14,3 @@ IncludeBlocks: Regroup
 IndentPPDirectives: BeforeHash
 AllowShortFunctionsOnASingleLine: Inline
 AllowShortLambdasOnASingleLine: Inline
-BraceWrapping:
-  BeforeLambdaBody: true

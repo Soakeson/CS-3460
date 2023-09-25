@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <format>
-
 /* @series: takes an unsigned int; 2 = fibonacchi, 3 = tribonacchi, etc.
  * @n takes an unsigned int n; The nbonacchi number to be calculated.
  * Calculates a nbonacci number from a given n using the specified series.
@@ -37,7 +36,7 @@ void computeNbonacciRatio(std::string title, unsigned int series)
     prev = curr;
     i++;
   }
-  std::cout << std::format("{} ratio approaches {} after {} iterations \n", title, prev, i);
+std::cout << std::format("{} ratio approaches {} after {} iterations \n", title, prev, i);
 }
 
 /* @title: takes a string that is the title of the nbonacci series.
