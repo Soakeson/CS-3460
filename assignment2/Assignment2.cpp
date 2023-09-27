@@ -77,7 +77,7 @@ std::vector<DistributionPair> generateNormalDistribution(uint32_t howMany, float
 
     for (float i = 0; i < numberBins; i++)
     {
-        bins.push_back(DistributionPair(min + i, min + i));
+        bins.push_back(DistributionPair(static_cast<uint32_t>(min + i), static_cast<uint32_t>(min + i)));
     }
 
     for (uint32_t i = 0; i < howMany; i++)
