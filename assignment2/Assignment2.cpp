@@ -1,6 +1,7 @@
 #include <format>
 #include <iostream>
 #include <random>
+#include <string>
 #include <vector>
 
 class DistributionPair
@@ -71,7 +72,7 @@ std::vector<DistributionPair> generateNormalDistribution(uint32_t howMany, float
     std::default_random_engine engine{ rd() };
     std::normal_distribution<float> distribution(mean, stdev);
     std::vector<DistributionPair> bins;
-    for (uint32_t i = 0; i < numberBins; i++)
+    for (uint32_t i = (mean - 4 * stdev); i < (mean + 4 * stdev); i++)
     {
         bins.push_back(DistributionPair(i, i));
     }
@@ -79,7 +80,7 @@ std::vector<DistributionPair> generateNormalDistribution(uint32_t howMany, float
     for (uint32_t i = 0; i < howMany; i++)
     {
         uint32_t num = distribution(engine);
-        bins[num].count++;
+        bins[num - (mean - 4 * stdev)].count++;
     }
 
     return bins;
@@ -141,7 +142,7 @@ void plotDistribution(std::string title, const std::vector<DistributionPair>& di
     for (DistributionPair bin : distribution)
     {
         uint32_t ast = bin.count / numPerAst;
-        std::cout << "[" << bin.minValue << " , " << bin.maxValue << "]" << std::string(ast, '*') << std::endl;
+        std::cout << std::format("[{}{}, {}{}]: {}\n", std::string(5 - std::to_string(bin.minValue).length(), ' '), bin.minValue, bin.maxValue, std::string(5 - std::to_string(bin.maxValue).length(), ' '), std::string(ast, '*'));
     }
 }
 
@@ -149,9 +150,11 @@ int main()
 {
     std::vector<DistributionPair> uniform = generateUniformDistribution(100000, 0, 79, 40);
     plotDistribution("--- Uniform ---", uniform, 80);
+    std::cout << "\n";
     std::vector<DistributionPair> normal = generateNormalDistribution(100000, 50, 5, 40);
     plotDistribution("--- Normal ---", normal, 80);
+    std::cout << "\n";
     std::vector<DistributionPair> poisson = generatePoissonDistribution(100000, 6, 40);
-    plotDistribution("--- Normal ---", poisson, 80);
+    plotDistribution("--- Poisson ---", poisson, 80);
     return 0;
 }
