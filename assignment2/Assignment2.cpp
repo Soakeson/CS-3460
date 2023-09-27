@@ -72,15 +72,29 @@ std::vector<DistributionPair> generateNormalDistribution(uint32_t howMany, float
     std::default_random_engine engine{ rd() };
     std::normal_distribution<float> distribution(mean, stdev);
     std::vector<DistributionPair> bins;
-    for (uint32_t i = (mean - 4 * stdev); i < (mean + 4 * stdev); i++)
+    float min = (mean - 4 * stdev);
+    float max = (mean + 4 * stdev);
+
+    for (float i = 0; i < numberBins; i++)
     {
-        bins.push_back(DistributionPair(i, i));
+        bins.push_back(DistributionPair(min + i, min + i));
     }
 
     for (uint32_t i = 0; i < howMany; i++)
     {
         uint32_t num = distribution(engine);
-        bins[num - (mean - 4 * stdev)].count++;
+        if (num > max)
+        {
+          bins[numberBins - 1].count++;
+        }
+        else if (num < min)
+        {
+          bins[0].count++;
+        }
+        else
+        {
+          bins[num - min].count++;
+        }
     }
 
     return bins;
@@ -99,7 +113,7 @@ std::vector<DistributionPair> generatePoissonDistribution(uint32_t howMany, uint
     std::poisson_distribution<uint32_t> distribution(howOften);
     std::vector<DistributionPair> bins;
 
-    for (uint32_t i = 0; i < numberBins; i++)
+    for (uint8_t i = 0; i < numberBins; i++)
     {
         bins.push_back(DistributionPair(i, i));
     }
@@ -107,7 +121,7 @@ std::vector<DistributionPair> generatePoissonDistribution(uint32_t howMany, uint
     for (uint32_t i = 0; i < howMany; i++)
     {
         uint32_t num = distribution(engine);
-        if (num < bins.size())
+        if (num < numberBins)
         {
             bins[num].count++;
         }
