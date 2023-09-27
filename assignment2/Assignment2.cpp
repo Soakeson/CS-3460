@@ -82,7 +82,7 @@ std::vector<DistributionPair> generateNormalDistribution(uint32_t howMany, float
 
     for (uint32_t i = 0; i < howMany; i++)
     {
-        uint32_t num = distribution(engine);
+        float num = distribution(engine);
         if (num > max)
         {
           bins[numberBins - 1].count++;
