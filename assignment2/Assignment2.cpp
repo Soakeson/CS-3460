@@ -72,8 +72,8 @@ std::vector<DistributionPair> generateNormalDistribution(uint32_t howMany, float
     std::default_random_engine engine{ rd() };
     std::normal_distribution<float> distribution(mean, stdev);
     std::vector<DistributionPair> bins;
-    float min = (mean - 4 * stdev);
-    float max = (mean + 4 * stdev);
+    const float min = (mean - 4 * stdev);
+    const float max = (mean + 4 * stdev);
 
     for (float i = 0; i < numberBins; i++)
     {
@@ -93,7 +93,7 @@ std::vector<DistributionPair> generateNormalDistribution(uint32_t howMany, float
         }
         else
         {
-          bins[num - min].count++;
+          bins[static_cast<uint64_t>(num - min)].count++;
         }
     }
 
