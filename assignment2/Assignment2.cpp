@@ -85,15 +85,15 @@ std::vector<DistributionPair> generateNormalDistribution(uint32_t howMany, float
         float num = distribution(engine);
         if (num > max)
         {
-          bins[numberBins - 1].count++;
+            bins[numberBins - 1].count++;
         }
         else if (num < min)
         {
-          bins[0].count++;
+            bins[0].count++;
         }
         else
         {
-          bins[static_cast<uint64_t>(num - min)].count++;
+            bins[static_cast<uint64_t>(num - min)].count++;
         }
     }
 
