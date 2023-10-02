@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.12)
 set(PROJECT RandDistribution)
 project(${PROJECT})
 
-# set(CMAKE_CXX_COMPILER /opt/homebrew/bin/g++-13)
+ set(CMAKE_CXX_COMPILER /opt/homebrew/bin/g++-13)
 #
 # Manually specifying all the source files.
 #
