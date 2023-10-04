@@ -64,7 +64,7 @@ std::vector<DistributionPair> generateNormalDistribution(uint32_t howMany, float
         }
         else
         {
-            bins[(num - min) / (range + 1)].count++;
+            bins[static_cast<uint64_t>((num - min) / (range + 1))].count++;
         }
     }
 
