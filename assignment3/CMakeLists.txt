@@ -43,7 +43,7 @@ set_property(TARGET ${UNIT_TEST_RUNNER} PROPERTY CXX_STANDARD 20)
  elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
      target_compile_options(${PROJECT} PRIVATE -Wall -Wextra -pedantic) # -Wconversion -Wsign-conversion
      target_compile_options(${UNIT_TEST_RUNNER} PRIVATE -Wall -Wextra -pedantic) # -Wconversion -Wsign-conversion
-   elseif (CMAKE_CXX_COMPILER_ID MATCHES "AppleClang")
+ elseif (CMAKE_CXX_COMPILER_ID MATCHES "AppleClang")
      target_compile_options(${PROJECT} PRIVATE -Wall -Wextra -pedantic) # -Wconversion -Wsign-conversion
      target_compile_options(${UNIT_TEST_RUNNER} PRIVATE -Wall -Wextra -pedantic -DLIBCXX_ENABLE_INCOMPLETE_FEATURES=ON) # -Wconversion -Wsign-conversion
 endif()
