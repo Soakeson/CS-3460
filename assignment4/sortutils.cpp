@@ -4,6 +4,7 @@
 #include <array>
 #include <chrono>
 #include <cstdint>
+#include <execution>
 #include <iostream>
 #include <random>
 #include <string>
@@ -62,10 +63,25 @@ void evaluateRawArray(const SourceArray& random, const SourceArray& sorted, cons
         }
 
         auto start = std::chrono::high_resolution_clock::now();
-        std::sort(std::begin(array), std::end(array));
+        if (i < 5)
+        {
+            std::sort(std::begin(array), std::end(array));
+        }
+        else
+        {
+            std::sort(std::execution::par, std::begin(array), std::end(array));
+        }
         auto end = std::chrono::high_resolution_clock::now();
         auto elapsed = end - start;
         auto time = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed);
+        if (i == 0)
+        {
+            std::cout << "---- Sequential ----" << std::endl;
+        }
+        if (i == 5)
+        {
+            std::cout << "---- Parrallel ----" << std::endl;
+        }
         std::cout << title << ": " << time.count() << " ms" << std::endl;
     }
 }
@@ -102,10 +118,26 @@ void evaluateStdArray(const SourceArray& random, const SourceArray& sorted, cons
             title = "Rotated";
         }
         auto start = std::chrono::high_resolution_clock::now();
+        if (i < 5)
+        {
+            std::sort(array.begin(), array.end());
+        }
+        else
+        {
+            std::sort(std::execution::par, array.begin(), array.end());
+        }
         std::sort(array.begin(), array.end());
         auto end = std::chrono::high_resolution_clock::now();
         auto elapsed = end - start;
         auto time = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed);
+        if (i == 0)
+        {
+            std::cout << "---- Sequential ----" << std::endl;
+        }
+        if (i == 5)
+        {
+            std::cout << "---- Parrallel ----" << std::endl;
+        }
         std::cout << title << ": " << time.count() << " ms" << std::endl;
     }
 }
@@ -143,10 +175,25 @@ void evaluateStdVector(const SourceArray& random, const SourceArray& sorted, con
             title = "Rotated";
         }
         auto start = std::chrono::high_resolution_clock::now();
-        std::sort(array.begin(), array.end());
+        if (i < 5)
+        {
+            std::sort(array.begin(), array.end());
+        }
+        else
+        {
+            std::sort(std::execution::par, array.begin(), array.end());
+        }
         auto end = std::chrono::high_resolution_clock::now();
         auto elapsed = end - start;
         auto time = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed);
+        if (i == 0)
+        {
+            std::cout << "---- Sequential ----" << std::endl;
+        }
+        if (i == 5)
+        {
+            std::cout << "---- Parrallel ----" << std::endl;
+        }
         std::cout << title << ": " << time.count() << " ms" << std::endl;
     }
 }
