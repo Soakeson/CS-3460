@@ -32,168 +32,197 @@ void organPipeStdArray(SourceArray& data)
 
 void evaluateRawArray(const SourceArray& random, const SourceArray& sorted, const SourceArray& reversed, const SourceArray& organPipe, const SourceArray& rotated)
 {
-    for (int i = 0; i < 10; i++)
+    for (int j = 0; j < 2; j++)
     {
-        std::string title = "";
-        int array[HOW_MANY_ELEMENTS];
-        if ((i == 0) || (i == 5))
+        (j == 0) ? std::cout << "---- Sequential ----" << std::endl : std::cout << "---- Parrallel ----" << std::endl;
+        long long total = 0;
+        for (int i = 0; i < HOW_MANY_TIMES * 5; i++)
         {
-            initializeRawArrayFromStdArray(random, array);
-            title = "Random";
-        }
-        else if ((i == 1) || (i == 6))
-        {
-            initializeRawArrayFromStdArray(sorted, array);
-            title = "Sorted";
-        }
-        else if ((i == 2) || (i == 7))
-        {
-            initializeRawArrayFromStdArray(reversed, array);
-            title = "Reversed";
-        }
-        else if ((i == 3) || (i == 8))
-        {
-            initializeRawArrayFromStdArray(organPipe, array);
-            title = "Organ Pipe";
-        }
-        else if ((i == 4) || (i == 9))
-        {
-            initializeRawArrayFromStdArray(rotated, array);
-            title = "Rotated";
-        }
+            std::string title = "";
+            int array[HOW_MANY_ELEMENTS];
+            if (i < HOW_MANY_TIMES)
+            {
+                initializeRawArrayFromStdArray(random, array);
+                title = "Random";
+            }
+            else if (i < HOW_MANY_TIMES * 2)
+            {
+                initializeRawArrayFromStdArray(sorted, array);
+                title = "Sorted";
+            }
+            else if (i < HOW_MANY_TIMES * 3)
+            {
+                initializeRawArrayFromStdArray(reversed, array);
+                title = "Reversed";
+            }
+            else if (i < HOW_MANY_TIMES * 4)
+            {
+                initializeRawArrayFromStdArray(organPipe, array);
+                title = "Organ Pipe";
+            }
+            else if (i < HOW_MANY_TIMES * 5)
+            {
+                initializeRawArrayFromStdArray(rotated, array);
+                title = "Rotated";
+            }
 
-        auto start = std::chrono::high_resolution_clock::now();
-        if (i < 5)
-        {
-            std::sort(std::begin(array), std::end(array));
+            auto start = std::chrono::steady_clock::now();
+            if (j == 0)
+            {
+                std::sort(std::begin(array), std::end(array));
+            }
+            else
+            {
+                std::sort(std::execution::par, std::begin(array), std::end(array));
+            }
+            auto end = std::chrono::steady_clock::now();
+            auto elapsed = end - start;
+            auto time = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed);
+            if (i % HOW_MANY_TIMES == HOW_MANY_TIMES - 1)
+            {
+                std::cout << title << ": " << total << " ms" << std::endl;
+                total = 0;
+            }
+            else
+            {
+                total += time.count();
+            }
         }
-        else
-        {
-            std::sort(std::execution::par, std::begin(array), std::end(array));
-        }
-        auto end = std::chrono::high_resolution_clock::now();
-        auto elapsed = end - start;
-        auto time = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed);
-        if (i == 0)
-        {
-            std::cout << "---- Sequential ----" << std::endl;
-        }
-        if (i == 5)
-        {
-            std::cout << "---- Parrallel ----" << std::endl;
-        }
-        std::cout << title << ": " << time.count() << " ms" << std::endl;
     }
 }
 
 void evaluateStdArray(const SourceArray& random, const SourceArray& sorted, const SourceArray& reversed, const SourceArray& organPipe, const SourceArray& rotated)
 {
-    for (int i = 0; i < 10; i++)
+    for (int j = 0; j < 2; j++)
     {
-        std::string title = "";
-        SourceArray array{};
-        if ((i == 0) || (i == 5))
-        {
-            array = random;
-            title = "Random";
-        }
-        else if ((i == 1) || (i == 6))
-        {
-            array = sorted;
-            title = "Sorted";
-        }
-        else if ((i == 2) || (i == 7))
-        {
-            array = reversed;
-            title = "Reversed";
-        }
-        else if ((i == 3) || (i == 8))
-        {
-            array = organPipe;
-            title = "Organ Pipe";
-        }
-        else if ((i == 4) || (i == 9))
-        {
-            array = rotated;
-            title = "Rotated";
-        }
-        auto start = std::chrono::high_resolution_clock::now();
-        if (i < 5)
-        {
-            std::sort(array.begin(), array.end());
-        }
-        else
-        {
-            std::sort(std::execution::par, array.begin(), array.end());
-        }
-        std::sort(array.begin(), array.end());
-        auto end = std::chrono::high_resolution_clock::now();
-        auto elapsed = end - start;
-        auto time = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed);
-        if (i == 0)
+        if (j == 0)
         {
             std::cout << "---- Sequential ----" << std::endl;
         }
-        if (i == 5)
+        if (j == 1)
         {
             std::cout << "---- Parrallel ----" << std::endl;
         }
-        std::cout << title << ": " << time.count() << " ms" << std::endl;
+        long long total = 0;
+        for (int i = 0; i < HOW_MANY_TIMES * 5; i++)
+        {
+            std::string title = "";
+            SourceArray array{};
+            if (i < HOW_MANY_TIMES)
+            {
+                array = random;
+                title = "Random";
+            }
+            else if (i < HOW_MANY_TIMES * 2)
+            {
+                array = sorted;
+                title = "Sorted";
+            }
+            else if (i < HOW_MANY_TIMES * 3)
+            {
+                array = reversed;
+                title = "Reversed";
+            }
+            else if (i < HOW_MANY_TIMES * 4)
+            {
+                array = organPipe;
+                title = "Organ Pipe";
+            }
+            else if (i < HOW_MANY_TIMES * 5)
+            {
+                array = rotated;
+                title = "Rotated";
+            }
+            auto start = std::chrono::steady_clock::now();
+            if (i < 5)
+            {
+                std::sort(array.begin(), array.end());
+            }
+            else
+            {
+                std::sort(std::execution::par, array.begin(), array.end());
+            }
+            std::sort(array.begin(), array.end());
+            auto end = std::chrono::steady_clock::now();
+            auto elapsed = end - start;
+            auto time = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed);
+            if (i % HOW_MANY_TIMES == HOW_MANY_TIMES - 1)
+            {
+                std::cout << title << ": " << total << " ms" << std::endl;
+                total = 0;
+            }
+            else
+            {
+                total += time.count();
+            }
+        }
     }
 }
 
 void evaluateStdVector(const SourceArray& random, const SourceArray& sorted, const SourceArray& reversed, const SourceArray& organPipe, const SourceArray& rotated)
 {
-    for (int i = 0; i < 10; i++)
+    for (int j = 0; j < 2; j++)
     {
-        std::string title = "";
-        std::vector<int> array;
-        std::vector<int>::iterator it;
-        if ((i == 0) || (i == 5))
-        {
-            array.insert(it + 0, std::begin(random), std::end(random));
-            title = "Random";
-        }
-        else if ((i == 1) || (i == 6))
-        {
-            array.insert(it + 0, std::begin(sorted), std::end(sorted));
-            title = "Sorted";
-        }
-        else if ((i == 2) || (i == 7))
-        {
-            array.insert(it + 0, std::begin(reversed), std::end(reversed));
-            title = "Reversed";
-        }
-        else if ((i == 3) || (i == 8))
-        {
-            array.insert(it + 0, std::begin(organPipe), std::end(organPipe));
-            title = "Organ Pipe";
-        }
-        else if ((i == 4) || (i == 9))
-        {
-            array.insert(it + 0, std::begin(rotated), std::end(rotated));
-            title = "Rotated";
-        }
-        auto start = std::chrono::high_resolution_clock::now();
-        if (i < 5)
-        {
-            std::sort(array.begin(), array.end());
-        }
-        else
-        {
-            std::sort(std::execution::par, array.begin(), array.end());
-        }
-        auto end = std::chrono::high_resolution_clock::now();
-        auto elapsed = end - start;
-        auto time = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed);
-        if (i == 0)
+        long long total = 0;
+        if (j == 0)
         {
             std::cout << "---- Sequential ----" << std::endl;
         }
-        if (i == 5)
+        else
         {
             std::cout << "---- Parrallel ----" << std::endl;
         }
-        std::cout << title << ": " << time.count() << " ms" << std::endl;
+        for (int i = 0; i < HOW_MANY_TIMES * 5; i++)
+        {
+            std::string title = "";
+            std::vector<int> array;
+            std::vector<int>::iterator it;
+            if (i < HOW_MANY_TIMES)
+            {
+                array.insert(it + 0, std::begin(random), std::end(random));
+                title = "Random";
+            }
+            else if (i < HOW_MANY_TIMES * 2)
+            {
+                array.insert(it + 0, std::begin(sorted), std::end(sorted));
+                title = "Sorted";
+            }
+            else if (i < HOW_MANY_TIMES * 3)
+            {
+                array.insert(it + 0, std::begin(reversed), std::end(reversed));
+                title = "Reversed";
+            }
+            else if (i < HOW_MANY_TIMES * 4)
+            {
+                array.insert(it + 0, std::begin(organPipe), std::end(organPipe));
+                title = "Organ Pipe";
+            }
+            else if (i < HOW_MANY_TIMES * 5)
+            {
+                array.insert(it + 0, std::begin(rotated), std::end(rotated));
+                title = "Rotated";
+            }
+            auto start = std::chrono::steady_clock::now();
+            if (j == 1)
+            {
+                std::sort(array.begin(), array.end());
+            }
+            else
+            {
+                std::sort(std::execution::par, array.begin(), array.end());
+            }
+            auto end = std::chrono::steady_clock::now();
+            auto elapsed = end - start;
+            auto time = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed);
+            if (i % HOW_MANY_TIMES == HOW_MANY_TIMES - 1)
+            {
+                std::cout << title << ": " << total << " ms" << std::endl;
+                total = 0;
+            }
+            else
+            {
+                total += time.count();
+            }
+        }
     }
 }
