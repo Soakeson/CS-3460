@@ -1,4 +1,5 @@
 #include "WordTree.hpp"
+#include "rlutil.h"
 
 #include <algorithm>
 #include <fstream>
@@ -39,19 +40,42 @@ std::shared_ptr<WordTree> readDictionary(std::string filename)
 int main()
 {
     std::shared_ptr<WordTree> tree = readDictionary("dictionary.txt");
-    std::vector<std::string> result = tree->predict("de", 10);
-    for (std::string word : result)
-    {
-        std::cout << word << std::endl;
-    }
+
     bool stop = false;
+    std::string input;
     while (!stop)
     {
-        std::istringstream iss("Hello this is a sentence");
+        int key = rlutil::getkey();
+        rlutil::cls();
+        switch (key)
+        {
+            case rlutil::KEY_ESCAPE:
+                stop = true;
+                break;
+            case rlutil::KEY_BACKSPACE:
+                if (input.size() > 0)
+                {
+                    input.erase(input.end() - 1);
+                }
+                break;
+            default:
+                input.append(std::string(1, key));
+        }
+
+        std::vector<std::string> predictor{};
+        std::istringstream iss(input);
         std::copy(std::istream_iterator<std::string>(iss),
                   std::istream_iterator<std::string>(),
-                  std::ostream_iterator<std::string>(std::cout, "\n"));
-        stop = true;
+                  std::back_inserter(predictor));
+
+        std::cout << input;
+        std::vector<std::string> prediction = tree->predict((predictor.size() > 0) ? predictor[predictor.size() - 1] : "", rlutil::trows() - 5);
+        std::cout << "\n\n--- Prediction ---\n";
+
+        for (std::string word : prediction)
+        {
+            std::cout << word << "\n";
+        }
     }
     return 0;
 }
