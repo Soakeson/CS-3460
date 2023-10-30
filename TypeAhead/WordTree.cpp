@@ -13,11 +13,11 @@
 
 const std::uint8_t ALPHA_OFFSET = 97;
 
-WordTree::WordTree()
+WordTree::WordTree() :
+    m_root(std::make_shared<TreeNode>(false)),
+    m_count(0)
 {
-    m_root = std::make_shared<TreeNode>(false);
-    m_count = 0;
-};
+}
 
 void WordTree::add(std::string word)
 {

@@ -68,7 +68,6 @@ int main()
                   std::istream_iterator<std::string>(),
                   std::back_inserter(predictor));
 
-        std::cout << input;
         std::vector<std::string> prediction = tree->predict((predictor.size() > 0) ? predictor[predictor.size() - 1] : "", rlutil::trows() - 5);
         std::cout << "\n\n--- Prediction ---\n";
 
@@ -76,6 +75,8 @@ int main()
         {
             std::cout << word << "\n";
         }
+        rlutil::locate(0, 0);
+        std::cout << input;
     }
     return 0;
 }
