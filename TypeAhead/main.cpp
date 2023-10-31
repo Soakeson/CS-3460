@@ -2,6 +2,7 @@
 #include "rlutil.h"
 
 #include <algorithm>
+#include <cstdint>
 #include <fstream>
 #include <iostream>
 #include <iterator>
@@ -59,7 +60,7 @@ int main()
                 }
                 break;
             default:
-                input.append(std::string(1, key));
+                input.append(std::string(1, char(key)));
         }
 
         std::vector<std::string> predictor{};
@@ -68,7 +69,7 @@ int main()
                   std::istream_iterator<std::string>(),
                   std::back_inserter(predictor));
 
-        std::vector<std::string> prediction = tree->predict((predictor.size() > 0) ? predictor[predictor.size() - 1] : "", rlutil::trows() - 5);
+        std::vector<std::string> prediction = tree->predict((predictor.size() > 0) ? predictor[predictor.size() - 1] : "", static_cast<std::uint8_t>(rlutil::trows() - 5));
         std::cout << "\n\n--- Prediction ---\n";
 
         for (std::string word : prediction)
