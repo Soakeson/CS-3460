@@ -76,7 +76,7 @@ int main()
         {
             std::cout << word << "\n";
         }
-        rlutil::locate(0, 0);
+        rlutil::locate(1, 1);
         std::cout << input;
     }
     return 0;

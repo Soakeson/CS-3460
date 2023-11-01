@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.12)
-set(CMAKE_CXX_COMPILER /opt/homebrw/bin/g++-13)
+set(CMAKE_CXX_COMPILER /opt/homebrew/bin/g++-13)
 
 set(PROJECT TypeAhead)
 set(UNIT_TEST_RUNNER UnitTestRunner)
@@ -41,8 +41,8 @@ set_property(TARGET ${UNIT_TEST_RUNNER} PROPERTY CXX_STANDARD 20)
      target_compile_options(${PROJECT} PRIVATE /W4 /permissive-)  #/WX will treat warnings as errors
      target_compile_options(${UNIT_TEST_RUNNER} PRIVATE /W4 /permissive-)  #/WX will treat warnings as errors
  elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-   target_compile_options(${PROJECT} PRIVATE -Wall -Wextra -pedantic -Wl,--stack,10000000 -O3) # -Wconversion -Wsign-conversion
-   target_compile_options(${UNIT_TEST_RUNNER} PRIVATE -Wall -Wextra -pedantic -Wl,--stack,10000000 -O3) # -Wconversion -Wsign-conversion
+   target_compile_options(${PROJECT} PRIVATE -Wall -Wextra -pedantic -Wl, -O3) # -Wconversion -Wsign-conversion
+   target_compile_options(${UNIT_TEST_RUNNER} PRIVATE -Wall -Wextra -pedantic -Wl, -O3) # -Wconversion -Wsign-conversion
    elseif (CMAKE_CXX_COMPILER_ID MATCHES "AppleClang")
      target_compile_options(${PROJECT} PRIVATE -Wall -Wextra -pedantic -Wl, --stack,10000000 -O3) # -Wconversion -Wsign-conversion
      target_compile_options(${UNIT_TEST_RUNNER} PRIVATE -Wall -Wextra -pedantic -Wl, --stack,10000000 -O3) # -Wconversion -Wsign-conversion
