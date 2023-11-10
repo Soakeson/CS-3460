@@ -1,5 +1,10 @@
+#include "PatternAcorn.hpp"
+#include "PatternGosperGliderGun.hpp"
+
+#include <iostream>
 
 int main()
 {
-  return 0;
+    PatternGosperGliderGun glider_gun{};
+    std::cout << glider_gun.getCell(0, 4);
 }
