@@ -13,5 +13,5 @@ class PatternAcorn : public Pattern
     virtual bool getCell(std::uint8_t x, std::uint8_t y) const override;
 
   private:
-    std::array<std::array<bool, 3>, 7> m_pattern;
+    std::array<std::array<bool, 7>, 3> m_pattern;
 };

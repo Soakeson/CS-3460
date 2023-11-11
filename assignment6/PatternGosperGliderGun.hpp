@@ -13,5 +13,5 @@ class PatternGosperGliderGun : public Pattern
     virtual bool getCell(std::uint8_t x, std::uint8_t y) const override;
 
   private:
-    std::array<std::array<bool, 9>, 36> m_pattern;
+    std::array<std::array<bool, 36>, 9> m_pattern;
 };

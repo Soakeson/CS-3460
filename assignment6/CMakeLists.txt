@@ -17,7 +17,8 @@ set(SOURCE_FILES
     PatternBlock.cpp 
     PatternGlider.cpp
     PatternPulsar.cpp
-    PatternGosperGliderGun.cpp 
+    PatternGosperGliderGun.cpp
+    LifeSimulator.cpp
     )
 
 set(HEADER_FILES
@@ -27,6 +28,7 @@ set(HEADER_FILES
     PatternGlider.hpp
     PatternPulsar.hpp
     PatternGosperGliderGun.hpp
+    LifeSimulator.hpp
     )
 
 set(UNIT_TEST_FILES 
