@@ -24,7 +24,6 @@ int main()
     rlutil::cls();
     while (true)
     {
-        rlutil::cls();
         renderer.render(sim);
         sim.update();
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
