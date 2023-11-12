@@ -30,10 +30,14 @@ int main()
     PatternGlider glider;
     sim.insertPattern(glider, 120, 20);
     rlutil::cls();
-    while (true)
+    rlutil::hidecursor();
+    int i = 0;
+    while (i < 1000000)
     {
         renderer.render(sim);
         sim.update();
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        std::this_thread::sleep_for(std::chrono::milliseconds(30));
+        i++;
     }
+    rlutil::showcursor();
 }

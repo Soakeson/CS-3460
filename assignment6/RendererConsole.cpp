@@ -19,11 +19,11 @@ void RendererConsole::render(const LifeSimulator& simulation)
             // if (m_prev.getCell(x, y) != cell)
             //{
             //    rlutil::locate(x, y);
-            //    //rlutil::setChar(cell ? '0' : ' ');
+            //    rlutil::setChar((cell ? '0' : ' '));
             //}
             rlutil::locate(x, y);
             std::cout << (cell ? "⏹" : " ");
         }
     }
-    // m_prev = simulation;
+    //m_prev = simulation;
 }

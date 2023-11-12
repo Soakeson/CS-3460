@@ -40,55 +40,40 @@ std::uint8_t LifeSimulator::liveNeighbors(std::uint8_t x, std::uint8_t y)
     std::vector<std::tuple<int, int>> neighbors;
     std::uint8_t liveNeighbors = 0;
 
-    // Bottom Right
-    if (x == getSizeX() && y == getSizeY())
-    {
-        neighbors = { { { -1, -1 }, { 0, -1 }, { -1, 0 } } };
-    }
-    // Bottom Left
-    else if (x == getSizeX() && y == 0)
-    {
-        neighbors = { { { 0, -1 }, { 1, -1 }, { 1, 0 } } };
-    }
     // Top Right
-    else if (x == 0 && y == getSizeY())
+    if (getCell(x - 1, y - 1))
     {
-        neighbors = { { { -1, 0 }, { -1, 1 }, { 0, 1 } } };
+        liveNeighbors++;
     }
-    // Top Left
-    else if (x == 0 && y == 0)
+    if (getCell(x, y - 1))
     {
-        neighbors = { { { 1, 0 }, { 0, 1 }, { 1, 1 } } };
+        liveNeighbors++;
     }
-    // Top
-    else if (y == 0)
+    if (getCell(x + 1, y - 1))
     {
-        neighbors = { { { -1, 0 }, { 1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 } } };
+        liveNeighbors++;
     }
-    // Bottom
-    else if (y == getSizeY())
+    if (getCell(x - 1, y))
     {
-        neighbors = { { { -1, -1 }, { 0, -1 }, { 1, -1 }, { -1, 0 }, { 1, 0 } } };
+        liveNeighbors++;
     }
-    // Left
-    else if (x == 0)
+    if (getCell(x + 1, y))
     {
-        neighbors = { { { 0, -1 }, { 1, -1 }, { 1, 0 }, { 0, 1 }, { 1, 1 } } };
+        liveNeighbors++;
     }
-    // Right
-    else if (x == getSizeX())
+    if (getCell(x - 1, y + 1))
     {
-        neighbors = { { { -1, -1 }, { 0, -1 }, { -1, 0 }, { -1, 1 }, { 0, 1 } } };
+        liveNeighbors++;
     }
-    else
+    if (getCell(x, y + 1))
     {
-        neighbors = { { { -1, -1 }, { 0, -1 }, { 1, -1 }, { -1, 0 }, { 1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 } } };
+        liveNeighbors++;
+    }
+    if (getCell(x + 1, y + 1))
+    {
+        liveNeighbors++;
     }
 
-    for (std::tuple<int, int> offset : neighbors)
-    {
-        liveNeighbors += getCell(x + std::get<0>(offset), y + std::get<1>(offset));
-    }
     return liveNeighbors;
 }
 
