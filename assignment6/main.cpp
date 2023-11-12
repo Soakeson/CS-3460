@@ -19,8 +19,16 @@ int main()
     RendererConsole renderer = RendererConsole(empty);
     LifeSimulator sim = LifeSimulator(rlutil::tcols(), rlutil::trows());
     PatternGosperGliderGun gosper;
+    sim.insertPattern(gosper, 0, 0);
     PatternAcorn acorn;
-    sim.insertPattern(gosper, 60, 10);
+    sim.insertPattern(acorn, 100, 30);
+    PatternPulsar pulsar;
+    sim.insertPattern(gosper, 70, 0);
+    sim.insertPattern(acorn, 200, 30);
+    sim.insertPattern(pulsar, 150, 10);
+    sim.insertPattern(acorn, 200, 35);
+    PatternGlider glider;
+    sim.insertPattern(glider, 120, 20);
     rlutil::cls();
     while (true)
     {

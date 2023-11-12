@@ -16,7 +16,7 @@ void RendererConsole::render(const LifeSimulator& simulation)
         {
             bool cell = simulation.getCell(x, y);
             // **Running it with this config is drastically slower when checking if it is different from previous state. I don't know why."
-            //if (m_prev.getCell(x, y) != cell)
+            // if (m_prev.getCell(x, y) != cell)
             //{
             //    rlutil::locate(x, y);
             //    //rlutil::setChar(cell ? '0' : ' ');
@@ -25,5 +25,5 @@ void RendererConsole::render(const LifeSimulator& simulation)
             std::cout << (cell ? "⏹" : " ");
         }
     }
-    m_prev = simulation;
+    // m_prev = simulation;
 }
