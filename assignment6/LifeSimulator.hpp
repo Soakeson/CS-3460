@@ -16,6 +16,7 @@ class LifeSimulator
     std::uint8_t getSizeX() const { return m_sizeX; };
     std::uint8_t getSizeY() const { return m_sizeY; };
     bool getCell(std::uint8_t x, std::uint8_t y) const;
+    std::uint8_t liveNeighbors(std::uint8_t x, std::uint8_t y);
     void display() const;
 
   private:

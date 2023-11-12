@@ -5,24 +5,28 @@
 #include "PatternGlider.hpp"
 #include "PatternGosperGliderGun.hpp"
 #include "PatternPulsar.hpp"
+#include "RendererConsole.hpp"
+#include "rlutil.h"
 
 #include <cstdint>
 #include <iostream>
 #include <ostream>
+#include <thread>
 
 int main()
 {
-    PatternAcorn acorn{};
-    std::cout << acorn.getCell(1, 0) << std::endl;
-    PatternBlinker blinker{};
-    std::cout << blinker.getCell(0, 1) << std::endl;
-    PatternGlider glider{};
-    std::cout << glider.getCell(0, 2) << std::endl;
-    PatternGosperGliderGun gosper{};
-    std::cout << gosper.getCell(14, 5) << std::endl;
-    PatternBlock block{};
-    PatternPulsar pulsar{};
-    LifeSimulator sim = LifeSimulator(40, 40);
-    sim.insertPattern(gosper, 5, 5);
-    sim.display();
+    LifeSimulator empty = LifeSimulator(0, 0);
+    RendererConsole renderer = RendererConsole(empty);
+    LifeSimulator sim = LifeSimulator(rlutil::tcols(), rlutil::trows());
+    PatternGosperGliderGun gosper;
+    PatternAcorn acorn;
+    sim.insertPattern(gosper, 60, 10);
+    rlutil::cls();
+    while (true)
+    {
+        rlutil::cls();
+        renderer.render(sim);
+        sim.update();
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    }
 }
