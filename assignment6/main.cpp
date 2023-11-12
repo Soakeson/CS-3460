@@ -32,11 +32,11 @@ int main()
     rlutil::cls();
     rlutil::hidecursor();
     int i = 0;
-    while (i < 1000000)
+    while (i < 1000)
     {
         renderer.render(sim);
         sim.update();
-        std::this_thread::sleep_for(std::chrono::milliseconds(30));
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
         i++;
     }
     rlutil::showcursor();

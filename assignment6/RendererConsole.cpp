@@ -25,5 +25,5 @@ void RendererConsole::render(const LifeSimulator& simulation)
             std::cout << (cell ? "⏹" : " ");
         }
     }
-    //m_prev = simulation;
+    // m_prev = simulation;
 }
