@@ -9,7 +9,7 @@ namespace usu
     {
       public:
         using conversion = T;
-        using storage = S;
+        using data_type = S;
         mass();
         mass(S data);
         S count() const { return m_data; };
@@ -29,66 +29,68 @@ namespace usu
     template <typename T, typename S>
     T mass_cast(S const& conv)
     {
-        double S_to_grams = static_cast<double>(S::conversion::num) / static_cast<double>(S::conversion::den) * static_cast<double>(conv.count());
-        double grams_to_T = static_cast<double>(T::conversion::den) / static_cast<double>(T::conversion::num) * S_to_grams;
-        return mass<typename T::conversion, typename T::storage>(static_cast<typename T::storage>(grams_to_T));
+        double num = static_cast<double>(S::conversion::num);
+        double den = static_cast<double>(S::conversion::den);
+        double S_to_grams = num / den * static_cast<double>(conv.count());
+        double grams_to_T = den / num * S_to_grams;
+        return mass<typename T::conversion, typename T::data_type>(static_cast<typename T::data_type>(grams_to_T));
     };
 
     template <typename T, typename S>
     T operator+(T const& lhs, S const& rhs)
     {
-        return mass<typename T::conversion, typename T::storage>(lhs.count() + mass_cast<T>(rhs).count());
+        return mass<typename T::conversion, typename T::data_type>(lhs.count() + mass_cast<T>(rhs).count());
     }
 
     template <typename T, typename S>
     T operator+=(T& lhs, S const& rhs)
     {
-        lhs = mass<typename T::conversion, typename T::storage>(lhs.count() + mass_cast<T>(rhs).count());
+        lhs = mass<typename T::conversion, typename T::data_type>(lhs.count() + mass_cast<T>(rhs).count());
         return lhs;
     }
 
     template <typename T, typename S>
     T operator-(T const& lhs, S const& rhs)
     {
-        return mass<typename T::conversion, typename T::storage>(lhs.count() - mass_cast<T>(rhs).count());
+        return mass<typename T::conversion, typename T::data_type>(lhs.count() - mass_cast<T>(rhs).count());
     }
 
     template <typename T, typename S>
     T operator-=(T& lhs, S const& rhs)
     {
-        lhs = mass<typename T::conversion, typename T::storage>(lhs.count() - mass_cast<T>(rhs).count());
+        lhs = mass<typename T::conversion, typename T::data_type>(lhs.count() - mass_cast<T>(rhs).count());
         return lhs;
     }
 
     template <typename T, typename S>
     S operator*(T const& lhs, S const& rhs)
     {
-        return mass<typename S::conversion, typename S::storage>(static_cast<typename S::storage>(lhs) * rhs.count());
+        return mass<typename S::conversion, typename S::data_type>(static_cast<typename S::data_type>(lhs) * rhs.count());
     }
 
     template <typename T, typename S>
     T operator*(T& lhs, S const& rhs)
     {
-        return mass<typename T::conversion, typename T::storage>(lhs.count() * static_cast<typename T::storage>(rhs));
+        return mass<typename T::conversion, typename T::data_type>(lhs.count() * static_cast<typename T::data_type>(rhs));
     }
 
     template <typename T, typename S>
     T operator*=(T& lhs, S const& rhs)
     {
-        lhs = mass<typename T::conversion, typename T::storage>(lhs.count() * rhs);
+        lhs = mass<typename T::conversion, typename T::data_type>(lhs.count() * rhs);
         return lhs;
     }
 
     template <typename T, typename S>
     T operator/(T& lhs, S const& rhs)
     {
-        return mass<typename T::conversion, typename T::storage>(lhs.count() / static_cast<typename T::storage>(rhs));
+        return mass<typename T::conversion, typename T::data_type>(lhs.count() / static_cast<typename T::data_type>(rhs));
     }
 
     template <typename T, typename S>
     T operator/=(T& lhs, S const& rhs)
     {
-        lhs = mass<typename T::conversion, typename T::storage>(lhs.count() / rhs);
+        lhs = mass<typename T::conversion, typename T::data_type>(lhs.count() / rhs);
         return lhs;
     }
 
@@ -102,7 +104,7 @@ namespace usu
     auto operator<=>(T const& lhs, S const& rhs)
     {
         auto converted = mass_cast<T>(rhs);
-        if constexpr (std::is_integral<typename T::storage>::value)
+        if constexpr (std::is_integral<typename T::data_type>::value)
         {
             if (lhs.count() == converted.count())
             {
