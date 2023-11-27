@@ -4,23 +4,23 @@
 #include <iostream>
 #include <string>
 
-// template <typename LHS, typename RHS>
-// std::string spaceshipCompare(const LHS& lhs, const RHS& rhs)
-//{
-//     if (lhs <=> rhs == std::strong_ordering::less || lhs <=> rhs == std::partial_ordering::less)
-//     {
-//         return "less";
-//     }
-//     else if (lhs <=> rhs == std::strong_ordering::greater || lhs <=> rhs == std::partial_ordering::greater)
-//     {
-//         return "greater";
-//     }
-//     else if (lhs <=> rhs == std::strong_ordering::equal || lhs <=> rhs == std::partial_ordering::equivalent)
-//     {
-//         return "equal";
-//     }
-//     return "unordered";
-// }
+template <typename LHS, typename RHS>
+std::string spaceshipCompare(const LHS& lhs, const RHS& rhs)
+{
+    if (lhs <=> rhs == std::strong_ordering::less || lhs <=> rhs == std::partial_ordering::less)
+    {
+        return "less";
+    }
+    else if (lhs <=> rhs == std::strong_ordering::greater || lhs <=> rhs == std::partial_ordering::greater)
+    {
+        return "greater";
+    }
+    else if (lhs <=> rhs == std::strong_ordering::equal || lhs <=> rhs == std::partial_ordering::equivalent)
+    {
+        return "equal";
+    }
+    return "unordered";
+}
 
 // ------------------------------------------------------------------
 //
@@ -55,16 +55,7 @@ int main()
     std::cout << std::format("ounces     : {:>12.4f}\n", ouncesFromPounds.count());
     std::cout << std::format("tons       : {:>12.4f}\n", tonsFromPounds.count());
 
-    if (mcg != g)
-    {
-        std::cout << "TRUE" << std::endl;
-    }
-    else
-    {
-        std::cout << "FALSE" << std::endl;
-    }
-
-    // std::cout << "\n--- Arithmetic Operators ---\n";
+    std::cout << "\n--- Arithmetic Operators ---\n";
     // Addition
     {
         usu::pound a{ 1 };
@@ -174,47 +165,47 @@ int main()
                                  g.count(), oz.count(), gramPlusEqual.count());
     }
 
-    //     std::cout << "\n--- Logical Operators ---\n";
-    //     {
-    //         usu::ounce a{ 16 };
-    //         usu::pound b{ 1 };
-    //         usu::kilogram c{ 4 };
-    //         usu::kilogram d{ 1 };
-    //
-    //         std::cout << std::format("{} oz == {} lb : {}\n", a.count(), b.count(), a == b);
-    //         std::cout << std::format("{} oz == {} kg : {}\n", a.count(), c.count(), a == c);
-    //         std::cout << std::format("{} kg == {} kg : {}\n", c.count(), d.count(), c == d);
-    //
-    //         std::cout << std::endl;
-    //         std::cout << std::format("{} oz != {} lb : {}\n", a.count(), b.count(), a != b);
-    //         std::cout << std::format("{} oz != {} kg : {}\n", a.count(), c.count(), a != c);
-    //         std::cout << std::format("{} kg != {} kg : {}\n", c.count(), d.count(), c != d);
-    //
-    //         std::cout << std::endl;
-    //         std::cout << std::format("{} oz < {} lb : {}\n", a.count(), b.count(), a < b);
-    //         std::cout << std::format("{} oz < {} kg : {}\n", a.count(), c.count(), a < c);
-    //         std::cout << std::format("{} kg < {} kg : {}\n", c.count(), d.count(), c < d);
-    //
-    //         std::cout << std::endl;
-    //         std::cout << std::format("{} oz > {} lb : {}\n", a.count(), b.count(), a > b);
-    //         std::cout << std::format("{} oz > {} kg : {}\n", a.count(), c.count(), a > c);
-    //         std::cout << std::format("{} kg > {} kg : {}\n", c.count(), d.count(), c > d);
-    //
-    //         std::cout << std::endl;
-    //         std::cout << std::format("{} oz <= {} lb : {}\n", a.count(), b.count(), a <= b);
-    //         std::cout << std::format("{} oz <= {} kg : {}\n", a.count(), c.count(), a <= c);
-    //         std::cout << std::format("{} kg <= {} kg : {}\n", c.count(), d.count(), c <= d);
-    //
-    //         std::cout << std::endl;
-    //         std::cout << std::format("{} oz >= {} lb : {}\n", a.count(), b.count(), a >= b);
-    //         std::cout << std::format("{} oz >= {} kg : {}\n", a.count(), c.count(), a >= c);
-    //         std::cout << std::format("{} kg >= {} kg : {}\n", c.count(), d.count(), c >= d);
-    //
-    //         std::cout << std::endl;
-    //         std::cout << std::format("{} oz <=> {} lb : {}\n", a.count(), b.count(), spaceshipCompare(a, b));
-    //         std::cout << std::format("{} oz <=> {} kg : {}\n", a.count(), c.count(), spaceshipCompare(a, c));
-    //         std::cout << std::format("{} kg <=> {} kg : {}\n", c.count(), d.count(), spaceshipCompare(c, d));
-    //
-    //         return 0;
-    //     }
+    std::cout << "\n--- Logical Operators ---\n";
+    {
+        usu::ounce a{ 16 };
+        usu::pound b{ 1 };
+        usu::kilogram c{ 4 };
+        usu::kilogram d{ 1 };
+
+        std::cout << std::format("{} oz == {} lb : {}\n", a.count(), b.count(), a == b);
+        std::cout << std::format("{} oz == {} kg : {}\n", a.count(), c.count(), a == c);
+        std::cout << std::format("{} kg == {} kg : {}\n", c.count(), d.count(), c == d);
+
+        std::cout << std::endl;
+        std::cout << std::format("{} oz != {} lb : {}\n", a.count(), b.count(), a != b);
+        std::cout << std::format("{} oz != {} kg : {}\n", a.count(), c.count(), a != c);
+        std::cout << std::format("{} kg != {} kg : {}\n", c.count(), d.count(), c != d);
+
+        std::cout << std::endl;
+        std::cout << std::format("{} oz < {} lb : {}\n", a.count(), b.count(), a < b);
+        std::cout << std::format("{} oz < {} kg : {}\n", a.count(), c.count(), a < c);
+        std::cout << std::format("{} kg < {} kg : {}\n", c.count(), d.count(), c < d);
+
+        std::cout << std::endl;
+        std::cout << std::format("{} oz > {} lb : {}\n", a.count(), b.count(), a > b);
+        std::cout << std::format("{} oz > {} kg : {}\n", a.count(), c.count(), a > c);
+        std::cout << std::format("{} kg > {} kg : {}\n", c.count(), d.count(), c > d);
+
+        std::cout << std::endl;
+        std::cout << std::format("{} oz <= {} lb : {}\n", a.count(), b.count(), a <= b);
+        std::cout << std::format("{} oz <= {} kg : {}\n", a.count(), c.count(), a <= c);
+        std::cout << std::format("{} kg <= {} kg : {}\n", c.count(), d.count(), c <= d);
+
+        std::cout << std::endl;
+        std::cout << std::format("{} oz >= {} lb : {}\n", a.count(), b.count(), a >= b);
+        std::cout << std::format("{} oz >= {} kg : {}\n", a.count(), c.count(), a >= c);
+        std::cout << std::format("{} kg >= {} kg : {}\n", c.count(), d.count(), c >= d);
+
+        std::cout << std::endl;
+        std::cout << std::format("{} oz <=> {} lb : {}\n", a.count(), b.count(), spaceshipCompare(a, b));
+        std::cout << std::format("{} oz <=> {} kg : {}\n", a.count(), c.count(), spaceshipCompare(a, c));
+        std::cout << std::format("{} kg <=> {} kg : {}\n", c.count(), d.count(), spaceshipCompare(c, d));
+
+        return 0;
+    }
 }

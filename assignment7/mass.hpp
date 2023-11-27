@@ -80,12 +80,6 @@ namespace usu
     }
 
     template <typename T, typename S>
-    S operator/(T const& lhs, S const& rhs)
-    {
-        return mass<typename S::conversion, typename S::storage>(static_cast<typename S::storage>(lhs) / rhs.count());
-    }
-
-    template <typename T, typename S>
     T operator/(T& lhs, S const& rhs)
     {
         return mass<typename T::conversion, typename T::storage>(lhs.count() / static_cast<typename T::storage>(rhs));
@@ -104,17 +98,48 @@ namespace usu
         return lhs.count() == mass_cast<T>(rhs).count();
     }
 
-    // template <typename T, typename S>
-    // std::strong_ordering operator<=>(T const& lhs, S const& rhs) const
-    //{
-    //
-    // }
+    template <typename T, typename S>
+    auto operator<=>(T const& lhs, S const& rhs)
+    {
+        auto converted = mass_cast<T>(rhs);
+        if constexpr (std::is_integral<typename T::storage>::value)
+        {
+            if (lhs.count() == converted.count())
+            {
+                return std::strong_ordering::equal;
+            }
+            else if (lhs.count() > converted.count())
+            {
+                return std::strong_ordering::greater;
+            }
+            else
+            {
+                return std::strong_ordering::less;
+            }
+        }
+        else
+        {
+            if (lhs.count() == converted.count())
+            {
+                return std::partial_ordering::equivalent;
+            }
+            else if (lhs.count() > converted.count())
+            {
+                return std::partial_ordering::greater;
+            }
+            else if (lhs.count() < converted.count())
+            {
+                return std::partial_ordering::less;
+            }
+            return std::partial_ordering::unordered;
+        }
+    }
 
     using kilogram = mass<std::ratio<1000, 1>, double>;
     using gram = mass<std::ratio<1, 1>>;
     using microgram = mass<std::ratio<1, 1000000>>;
-    using ounce = mass<std::ratio<3125000000, 110231221>, double>;
-    using pound = mass<std::ratio<50000000000, 110231221>, double>;
-    using ton = mass<std::ratio<907185, 1>, double>;
+    using ounce = mass<std::ratio<45359237, 1600000>, double>;
+    using pound = mass<std::ratio<45359237, 100000>, double>;
+    using ton = mass<std::ratio<45359237, 50>, double>;
 
 } // namespace usu

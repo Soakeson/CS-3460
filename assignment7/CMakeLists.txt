@@ -20,13 +20,14 @@ set(HEADER_FILES
     )
 
 set(UNIT_TEST_FILES 
+    TestMass.cpp
     )
 
 #
 # This is the main target
 #
 add_executable(${PROJECT} ${HEADER_FILES} ${SOURCE_FILES} main.cpp)
-add_executable(${UNIT_TEST_RUNNER} ${HEADER_FILES} ${SOURCE_FILES} ${UNIT_TEST_FILES})
+add_executable(${UNIT_TEST_RUNNER} ${HEADER_FILES} ${UNIT_TEST_FILES})
 #
 # We want the C++ 20 standard for our project
 #
