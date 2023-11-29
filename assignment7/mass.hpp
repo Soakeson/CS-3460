@@ -29,10 +29,8 @@ namespace usu
     template <typename T, typename S>
     T mass_cast(S const& conv)
     {
-        double num = static_cast<double>(S::conversion::num);
-        double den = static_cast<double>(S::conversion::den);
-        double S_to_grams = num / den * static_cast<double>(conv.count());
-        double grams_to_T = den / num * S_to_grams;
+        double S_to_grams = static_cast<double>(S::conversion::num) / static_cast<double>(S::conversion::den) * static_cast<double>(conv.count());
+        double grams_to_T = static_cast<double>(T::conversion::den) / static_cast<double>(T::conversion::num) * S_to_grams;
         return mass<typename T::conversion, typename T::data_type>(static_cast<typename T::data_type>(grams_to_T));
     };
 
